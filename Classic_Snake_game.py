@@ -7,6 +7,7 @@ import os
 pygame.mixer.init()
 pygame.init()
 
+
 # Colors
 white = (255, 255, 255)
 red = (255, 0, 0)
@@ -16,10 +17,12 @@ green = (0, 102, 0)
 yellow = (255, 255, 0)
 blue = (0,0,255)
 
+#Taking Input From User
+username = input("Please enter your name: ")
+
 # global variable
 fps_r = 0
 init_velocity_r = 0
-
 #  Creating Window and its values
 screen_width = 900
 screen_height = 600
@@ -36,6 +39,7 @@ play_game_i = pygame.image.load("Welcome.jpg")
 play_game_i = pygame.transform.scale(play_game_i, (screen_width, screen_height)).convert_alpha()
 game_over_i = pygame.image.load("game_over.jpg")
 game_over_i = pygame.transform.scale(game_over_i, (screen_width, screen_height)).convert_alpha()
+
 
 # Game Title
 pygame.display.set_caption("SNAKE V2.1 by Praveen Singh Chauhan")
@@ -57,8 +61,8 @@ def plot_snake(gameWindow, color, snk_list, snake_size):
 def gamemode():
     exit_game = False
     gameWindow.blit(g_mode, (0, 0))
+    
     while not exit_game:
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit_game = True
@@ -115,6 +119,9 @@ def welcome():
     while not exit_game:
 
         gameWindow.blit(play_game_i, (0, 0))
+        
+        #DISPLAYING THE TEXT ON WELCOME SCREEN
+        text_screen( "Welcome "+ str(username), blue , 270,300)
 
         for event in pygame.event.get():
 
@@ -167,6 +174,7 @@ def gameloop():
     fps = gamemode.fps
 
     while not exit_game:
+        
 
         if game_over:
 
@@ -175,6 +183,10 @@ def gameloop():
                 gameWindow.blit(game_over_i,(0, 0))
                 pygame.draw.rect(gameWindow, blue, [30, 35, 250, 60])
                 pygame.draw.rect(gameWindow, green, [630, 35, 250, 60])
+                #Displaying Score of User
+                text_screen(str(username)+" " + "your score is "+ str(gameloop.hiscore), blue , 270,105)
+                text_screen("Thankyou for playing" +" "+ str(username), green, 270, 150)
+
                 text_screen("Score: " + str(gameloop.score) + " " *45 + "Hiscore: "+str(gameloop.hiscore), white, 50, 50)
 
             for event in pygame.event.get():
